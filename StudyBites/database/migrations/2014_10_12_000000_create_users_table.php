@@ -22,8 +22,7 @@ class CreateUsersTable extends Migration
             $table->integer('points')->default(0);  // Points (default to 0)
             $table->timestamps();  // Timestamps (created_at, updated_at)
             $table->unsignedBigInteger('background_id')->nullable();
-            $table->foreign('background_id')->references('id')->on('backgrounds')->onDelete('set null');
-
+            $table->foreign('background_id')->references('id')->on('backgrounds')->onDelete('set null');            
         });
     }    
 

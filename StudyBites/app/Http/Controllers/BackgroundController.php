@@ -31,6 +31,9 @@ class BackgroundController extends Controller
             $user->background_id = $background->id;
             $user->save();
 
+            // Optionally, store background in session for immediate feedback
+            session(['selected_background' => $background->image_path]);
+
             return redirect()->back()->with('success', 'Background updated successfully!');
         }
 

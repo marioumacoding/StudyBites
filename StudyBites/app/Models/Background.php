@@ -9,9 +9,11 @@ class Background extends Model
 {
     use HasFactory;
 
+    // Allow mass assignment for these fields
+    protected $fillable = ['image_name', 'image_path'];
+
     public function users()
     {
         return $this->hasMany(User::class);
     }
-
 }
