@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackgroundController;
-use App\Http\Controllers\TimerController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/backgrounds', [BackgroundController::class, 'index'])->name('backgrounds.index');
@@ -27,4 +26,4 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/timer', [TimerController::class, 'index'])->middleware('auth');
+// Route::get('/timer', [TimerController::class, 'index'])->middleware('auth');
