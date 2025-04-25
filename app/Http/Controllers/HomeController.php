@@ -17,5 +17,15 @@ class HomeController extends Controller
         $backgrounds = Background::all();
         return view('home', compact('backgrounds'));
     }
+
+    public function completeSession(Request $request)
+    {
+        $user = auth()->user();
+        $user->points += 10; // or however many points you want per session
+        $user->save();
+
+        return response()->json(['success' => true, 'points' => $user->points]);
+    }
+
 }
 

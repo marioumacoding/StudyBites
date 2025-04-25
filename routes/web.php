@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackgroundController;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use App\Models\User;
 
 Route::middleware('auth')->group(function () {
     Route::get('/backgrounds', [BackgroundController::class, 'index'])->name('backgrounds.index');
@@ -23,7 +27,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Auth::routes();
+
+
+Route::post('/complete-session', function (Request $request) {
+    $user = Auth::user();
+    if ($user) {
+        $user->points += 10; // Add 10 points per session
+        $user->save();
+        return response()->json(['success' => true, 'points' => $user->points]);
+    }
+    return response()->json(['success' => false], 401);
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/timer', [TimerController::class, 'index'])->middleware('auth');
+Route::post('/complete-session', [HomeController::class, 'completeSession'])->middleware('auth');
