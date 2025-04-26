@@ -78,12 +78,17 @@
   </a>
     </div>
   </div>
+
+  <!-- start of StudyBites Preview -->
   <div class="min-h-screen flex flex-col items-center justify-center p-4" style="background: linear-gradient(to bottom, rgba(58,26,10,0.5), rgba(58,26,10,1));">
     <h1 class=" text-white mt-10 text-4xl tracking-wide font-semibold -mb-8 "> We provide comfort,</h1>
     <h1 class=" text-white mt-10 text-4xl tracking-wide font-semibold mb-8"> So you can provide the brilliance.</h1>
     <img alt="Illustration of books stacked in a bookshelf" class="custom-image" src="C:\Users\Rita Andrew\Downloads\StudyBites\BoostersBG5.jpg" style="width: 750px; height: 450px; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);">
   </div> 
-  
+    <!-- end of StudyBites Preview -->
+
+    <!-- start of Addition Services  -->
+
   <div class="bg-[#3c1807] flex flex-col items-center py-16 px-4">
   <h1 class="text-white text-5xl font-semibold -mt-4 mb-20">
     Even more of
@@ -93,22 +98,27 @@
   </h1>
   <div class="flex flex-col sm:flex-row gap-16 max-w-5xl w-full justify-center">
     <!-- MindBoosters Card -->
-    <div class="w-60 h-80 rounded-md flex flex-col items-center text-white p-12 shadow-lg" style="background-image: url('/assets/images/MindBoosters.jpg'); background-size: cover; background-position: center;">
-      <button class="bg-[#2a0e03] rounded-sm px-8 py-2 mt-auto hover:bg-[#3c1807] transition-colors card-button">
+    <div class="w-60 h-80 rounded-md flex flex-col items-center text-white p-12 shadow-lg" style="background-image: url('/assets/images/MindBoosters.png'); background-size: cover; background-position: center;">
+      <button class="bg-[#2a0e03] rounded-sm px-8 py-2 -mb-4 mt-auto hover:bg-[#3c1807] transition-colors card-button">
         Click Here
       </button>
     </div>
     <!-- MotoBoosters Card -->
-    <div class="w-60 h-80 rounded-md flex flex-col items-center text-white p-12 shadow-lg" style="background-image: url('/assets/images/SkillBoosters.jpg'); background-size: cover; background-position: center;">
-      <button class="bg-[#2a0e03] rounded-sm px-8 py-2 mt-auto hover:bg-[#3c1807] transition-colors card-button">
+    <div class="w-60 h-80 rounded-md flex flex-col items-center text-white p-12 shadow-lg" style="background-image: url('/assets/images/SkillBoosters.png'); background-size: cover; background-position: center;">
+    <a href="{{ route('motoboosters') }}" class="bg-[#2a0e03] rounded-sm px-8 py-2 -mb-4 mt-auto hover:bg-[#3c1807] transition-colors card-button">  
+    <button>
         Click Here
       </button>
+  </a>
     </div>
+
     <!-- SkillBoosters Card -->
-    <div class="w-60 h-80 rounded-md flex flex-col items-center text-white p-12 shadow-lg" style="background-image: url('/assets/images/MotoBoosters.jpg'); background-size: cover; background-position: center;">
-      <button class="bg-[#2a0e03] rounded-sm px-8 py-2 mt-auto hover:bg-[#3c1807] transition-colors card-button">
+    <div class="w-60 h-80 rounded-md flex flex-col items-center text-white p-12 shadow-lg" style="background-image: url('/assets/images/MotoBoosters.png'); background-size: cover; background-position: center;">
+     <a href="{{ route('motoboosters') }}" class="bg-[#2a0e03] rounded-sm px-8 py-2 -mb-4 mt-auto hover:bg-[#3c1807] transition-colors card-button">
+    <button>
         Click Here
       </button>
+  </a>
     </div>
   </div>
 </div>
@@ -126,5 +136,8 @@
     </button>
 </a>
 </div>
+
+  <!-- end of StudyBites Preview -->
+
 </body>
 </html>

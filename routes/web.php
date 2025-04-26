@@ -48,3 +48,6 @@ Route::post('/complete-session', [HomeController::class, 'completeSession'])->mi
 // Route::post('/update-background', [UserController::class, 'updateBackground']);
 
 Route::post('/update-background', [UserController::class, 'updateBackground'])->middleware('auth');
+Route::get('/motoboosters', function () {
+    return view('motoboosters');
+})->name('motoboosters');
