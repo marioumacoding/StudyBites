@@ -46,6 +46,14 @@
             </div>
         </div>
     </div>
+    <iframe
+    style="border-radius: 12px; position: fixed; bottom: 10px; left: 20px; width: 380px; height: 120px; border: none; z-index: 100;"
+    src="https://open.spotify.com/embed/playlist/0J6Ghsh3mEuNgGh2wRFgHw?utm_source=generator&theme=0"
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+    loading="lazy">
+</iframe>
+
+
 </div>
 @endsection
 
