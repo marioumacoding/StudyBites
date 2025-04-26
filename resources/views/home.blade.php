@@ -46,12 +46,26 @@
             </div>
         </div>
     </div>
-    <iframe
-    style="border-radius: 12px; position: fixed; bottom: 10px; left: 20px; width: 380px; height: 120px; border: none; z-index: 100;"
+<iframe
+    style="border-radius: 12px; position: fixed; bottom: 20px; left: 20px; width: 380px; height: 120px; border: none; z-index: 100;"
     src="https://open.spotify.com/embed/playlist/0J6Ghsh3mEuNgGh2wRFgHw?utm_source=generator&theme=0"
     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
     loading="lazy">
 </iframe>
+
+<div style="position: fixed; top: 20px; right: 20px; z-index: 100;">
+    <button id="toggleTaskListBtn" class="btn btn-primary">Tasks</button>
+    <div id="taskListContainer" style="display: none; background-color: #f9f9f9; border: 1px solid #ccc; padding: 10px; margin-top: 10px; width: 250px; box-shadow: 2px 2px 5px #888;">
+        <h4>Tasks</h4>
+        <ul id="taskList" style="list-style-type: none; padding: 0;">
+        </ul>
+        <div>
+            <input type="text" id="newTaskInput" placeholder="Add new task">
+            <button id="addTaskBtn" class="btn btn-success btn-sm">+</button>
+        </div>
+    </div>
+</div>
+
 
 
 </div>
@@ -337,6 +351,36 @@ function setTimer(type) {
         startPauseTimer(); // pause if already running
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+        const toggleTaskListBtn = document.getElementById('toggleTaskListBtn');
+        const taskListContainer = document.getElementById('taskListContainer');
+        const taskList = document.getElementById('taskList');
+        const newTaskInput = document.getElementById('newTaskInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+
+        toggleTaskListBtn.addEventListener('click', function() {
+            taskListContainer.style.display = taskListContainer.style.display === 'none' ? 'block' : 'none';
+        });
+
+        addTaskBtn.addEventListener('click', function() {
+            const taskText = newTaskInput.value.trim();
+            if (taskText !== '') {
+                const listItem = document.createElement('li');
+                listItem.textContent = taskText;
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'x';
+                deleteButton.classList.add('btn', 'btn-danger', 'btn-sm', 'float-right', 'ml-2');
+                deleteButton.addEventListener('click', function() {
+                    listItem.remove();
+                });
+                listItem.appendChild(deleteButton);
+                taskList.appendChild(listItem);
+                newTaskInput.value = '';
+            }
+        });
+    });
+
 </script>
 @endpush
     
