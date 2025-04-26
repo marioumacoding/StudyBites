@@ -58,4 +58,14 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Points updated successfully!']);
     }
+
+    public function updateBackground(Request $request)
+    {
+        $user = Auth::user();
+        $user->background = $request->background;  // Store the selected background path
+        $user->save();
+    
+        return response()->json(['success' => true]);
+    }
+    
 }

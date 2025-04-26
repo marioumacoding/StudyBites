@@ -6,8 +6,8 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <!-- <title>{{ config('app.name', 'Laravel') }}</title> -->
+    <title>StudyBites</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/icons/Favicon.png') }}">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -18,6 +18,11 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @stack('styles')
+    <!-- Bootstrap 4.6 CSS -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    
 </head>
 <body>
     <div id="app">
@@ -26,19 +31,18 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <!-- {{ config('app.name', 'Laravel') }} -->
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -49,7 +53,7 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
                                 </a>
@@ -72,29 +76,39 @@
             </div>
         </nav>
 
+        <!-- Background Style -->
         <style>
-    /* Set the background dynamically based on session or user profile */
-    body {
-        @php
-            $backgroundImage = Auth::check() 
-                ? (session('selected_background') ?: (Auth::user()->background ? Auth::user()->background->image_path : 'backgrounds/default.jpg')) 
-                : 'backgrounds/default.jpg';
-        @endphp
+            @php
+                $backgroundImage = Auth::check() 
+                    ? (session('selected_background') ?: (Auth::user()->background ? Auth::user()->background->image_path : 'backgrounds/default.jpg')) 
+                    : 'backgrounds/default.jpg';
+            @endphp
 
-        background-image: url('{{ asset('storage/' . $backgroundImage) }}');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh;
-        margin: 0;
-        font-family: 'Nunito', sans-serif;
-    }
-</style>
-
+            body {
+                background-image: url('{{ asset('storage/' . $backgroundImage) }}');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                height: 100vh;
+                margin: 0;
+                font-family: 'Nunito', sans-serif;
+            }
+        </style>
 
         <main class="py-4">
             @yield('content')
         </main>
     </div>
+
+    <!-- jQuery (needed for Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Pushed scripts -->
+@stack('scripts')
+
 </body>
 </html>
+            

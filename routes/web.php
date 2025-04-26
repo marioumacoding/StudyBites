@@ -45,4 +45,6 @@ Route::post('/complete-session', function (Request $request) {
 // routes/web.php
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/complete-session', [HomeController::class, 'completeSession'])->middleware('auth');
+// Route::post('/update-background', [UserController::class, 'updateBackground']);
 
+Route::post('/update-background', [UserController::class, 'updateBackground'])->middleware('auth');
