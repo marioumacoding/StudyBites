@@ -26,6 +26,8 @@
         </div>
         @endforeach
     </div>
+    
+
 
     <div class="pomodoro-container">
         <div class="timer-wrapper">
@@ -52,6 +54,15 @@
     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
     loading="lazy">
 </iframe>
+<div class= "rank-container">
+<div class="points-box">
+    <p>Welcome, {{ $user->first_name }}</p>
+</div>
+<div class="points-box">
+    <p>Points: {{ $user->points }}</p>
+</div>
+</div>
+
 
 <div style="position: fixed; top: 20px; right: 20px; z-index: 100;">
     <button id="toggleTaskListBtn" class="btn btn-primary">Tasks</button>
@@ -79,6 +90,23 @@ body, html {
     padding: 0;
     height: 100%;
     overflow: hidden;
+}
+.points-box {
+    /* color: #f0f0f0; */
+    border-color: #f0f0f0;
+    border-radius: 5px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.rank-container{
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
 }
 
 /* Main Background Container */

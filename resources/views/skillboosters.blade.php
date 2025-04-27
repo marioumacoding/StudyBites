@@ -79,10 +79,9 @@
               <p class="text-lg font-thin tracking-wider leading-relaxed max-w-xl -mt-7 text-[#f5f5dc]">
 
                   <br/>
-                  Your curated collection of the latest, science-backed articles designed to help you  <br/>
-                  study smarter not harder. <br/>
-                  Whether you're looking to improve focus, boost memory, or optimize your learning habits, <br/>
-                  We've gathered the best insights to help you reach your full potential — efficiently and effectively.
+                  Sometimes a quick check-in with yourself can make a big difference.
+With SkillBooster you can take self-assessments that help you figure out how you focus, learn, and study best.
+It’s not about being perfect — it’s about noticing what’s working and finding small ways to get even better.
               </p>      
           </div>
       </main>

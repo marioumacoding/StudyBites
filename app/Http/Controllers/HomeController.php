@@ -18,6 +18,7 @@ class HomeController extends Controller
    public function index()
 {
     $backgrounds = Background::all();
+    $user = auth()->user(); // Get the currently authenticated user
 
     // Static array of quotes (you can add more or pull from another source if needed)
     $quotes = [
@@ -27,7 +28,7 @@ class HomeController extends Controller
         // Add more quotes as needed
     ];
 
-    return view('home', compact('backgrounds', 'quotes'));
+    return view('home', compact('backgrounds', 'quotes', 'user')); // Passing the user object to the view
 }
 
     

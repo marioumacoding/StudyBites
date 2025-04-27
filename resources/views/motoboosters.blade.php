@@ -78,11 +78,9 @@
               <h1 class="text-7xl tilt-warp-heading leading-tight mb-6">MotoBoosters</h1>
               <p class="text-lg font-thin tracking-wider leading-relaxed max-w-xl -mt-7 text-[#f5f5dc]">
                   <br/>
-                  Welcome to MotoBoosters,<br/>
-                  Your curated collection of the most inspirational speeches and talks out there  <br/>
-                  All made specifically to boost students' motivation. <br/>
-                  Whether you're looking for just an extra push, you need to completely start fresh, <br/>
-                  You will find the perfect booster for you.
+                  When staying motivated feels tough, MotoBoosters is here to help.
+We’ve put together a bunch of powerful speeches and talks that are all about pushing through challenges and staying on track.
+Whether you need a little boost or a fresh start, you’ll find something here that speaks to you.
               </p>      
           </div>
       </main>

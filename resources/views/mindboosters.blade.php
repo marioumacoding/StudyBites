@@ -78,10 +78,9 @@
               <h1 class="text-7xl tilt-warp-heading leading-tight mb-6">MindBoosters</h1>
               <p class="text-lg font-thin tracking-wider leading-relaxed max-w-xl -mt-7 text-[#f5f5dc]">
                   <br/>
-                  Your curated collection of the latest, science-backed articles designed to help you  <br/>
-                  study smarter not harder. <br/>
-                  Whether you're looking to improve focus, boost memory, or optimize your learning habits, <br/>
-                  We've gathered the best insights to help you reach your full potential — efficiently and effectively.
+                  It’s easier to study smarter when you’ve got good advice to guide you.
+MindBoosters is a collection of articles packed with real tips, backed by research, but written in a way that’s easy to understand.
+If you’re trying to build better habits, stay focused, or just learn a little faster, you’ll find a lot of helpful ideas here.
               </p>      
           </div>
       </main>
