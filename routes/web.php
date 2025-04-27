@@ -51,3 +51,11 @@ Route::post('/update-background', [UserController::class, 'updateBackground'])->
 Route::get('/motoboosters', function () {
     return view('motoboosters');
 })->name('motoboosters');
+
+Route::get('/skillboosters', function () {
+    return view('skillboosters');
+})->name('skillboosters');
+
+Route::get('/mindboosters', function () {
+    return view('mindboosters');
+})->name('mindboosters');

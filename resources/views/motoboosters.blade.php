@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <title>StudyBites</title>
-    <link rel="icon" type="image/x-icon" href="Favicon.png">
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/icons/Favicon.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,12 +59,14 @@
         <div class="text-base text-lg studybites-font">StudyBites</div>
         <div class="flex items-center space-x-8">
             <nav class="hidden md:flex space-x-8 text-lg font-normal">
-              <a class="hover:underline" href="#">MindBoosters</a>
-              <a class="hover:underline" href="#">SkillBoosters</a>
+              <a class="hover:underline" href="{{ route('mindboosters') }}">MindBoosters</a>
+              <a class="hover:underline" href="{{ route('skillboosters') }}">SkillBoosters</a>
               <p class="underline underline-offset-4 decoration-white font-bold">MotoBoosters</p>
             </nav>
-            <button class="hidden md:block border border-white text-white text-lg rounded px-6 py-2 hover:bg-white hover:text-black transition">Get Started</button>      
-        </div>
+            <a href="{{ route('register') }}" class="hidden md:block border border-white text-white text-lg rounded px-6 py-2 hover:bg-white hover:text-black transition">
+            <button>Get Started</button>      
+            </a>
+          </div>
     </header>
       <main class=" flex flex-col md:flex-row items-start gap-32 pl-2 pr-6 py-20 pt-48 max-w-6xl mx-auto ">
         <img

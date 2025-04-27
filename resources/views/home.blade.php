@@ -351,35 +351,90 @@ function setTimer(type) {
         startPauseTimer(); // pause if already running
     }
 }
-
 document.addEventListener('DOMContentLoaded', function() {
-        const toggleTaskListBtn = document.getElementById('toggleTaskListBtn');
-        const taskListContainer = document.getElementById('taskListContainer');
-        const taskList = document.getElementById('taskList');
-        const newTaskInput = document.getElementById('newTaskInput');
-        const addTaskBtn = document.getElementById('addTaskBtn');
+    const toggleTaskListBtn = document.getElementById('toggleTaskListBtn');
+    const taskListContainer = document.getElementById('taskListContainer');
+    const taskList = document.getElementById('taskList');
+    const newTaskInput = document.getElementById('newTaskInput');
+    const addTaskBtn = document.getElementById('addTaskBtn');
 
-        toggleTaskListBtn.addEventListener('click', function() {
-            taskListContainer.style.display = taskListContainer.style.display === 'none' ? 'block' : 'none';
+    // Toggle task list visibility
+    toggleTaskListBtn.addEventListener('click', function() {
+        taskListContainer.style.display = (taskListContainer.style.display === 'none' || taskListContainer.style.display === '') ? 'block' : 'none';
+    });
+
+    // Add a new task
+    addTaskBtn.addEventListener('click', function() {
+        const taskText = newTaskInput.value.trim();
+        if (taskText !== '') {
+            addTask(taskText);
+            newTaskInput.value = '';
+        }
+    });
+
+    // Add task on pressing Enter
+    newTaskInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            addTaskBtn.click();
+        }
+    });
+
+    // Function to create a task item
+    function addTask(taskText) {
+        const listItem = document.createElement('li');
+        listItem.classList.add('d-flex', 'align-items-center', 'mb-2', 'task-item');
+
+        const taskSpan = document.createElement('span');
+        taskSpan.textContent = taskText;
+        taskSpan.classList.add('flex-grow-1');
+        taskSpan.style.cursor = 'pointer';
+       // Check (✔️) button
+       const checkBtn = document.createElement('span');
+        checkBtn.innerHTML = '&#10003;'; // ✔️ character
+        checkBtn.style.cursor = 'pointer';
+        checkBtn.style.color = 'green';
+        checkBtn.style.marginRight = '10px';
+        checkBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            taskSpan.style.textDecoration = taskSpan.style.textDecoration === 'line-through' ? 'none' : 'line-through';
         });
-
-        addTaskBtn.addEventListener('click', function() {
-            const taskText = newTaskInput.value.trim();
-            if (taskText !== '') {
-                const listItem = document.createElement('li');
-                listItem.textContent = taskText;
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'x';
-                deleteButton.classList.add('btn', 'btn-danger', 'btn-sm', 'float-right', 'ml-2');
-                deleteButton.addEventListener('click', function() {
-                    listItem.remove();
-                });
-                listItem.appendChild(deleteButton);
-                taskList.appendChild(listItem);
-                newTaskInput.value = '';
+        const editBtn = document.createElement('span');
+        editBtn.innerHTML = '&#9998;'; // ✎ edit icon
+        editBtn.classList.add('ml-2', 'text-primary');
+        editBtn.style.cursor = 'pointer';
+        editBtn.style.marginLeft = '10px';
+        editBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const newTaskName = prompt('Edit task:', taskSpan.textContent);
+            if (newTaskName !== null && newTaskName.trim() !== '') {
+                taskSpan.textContent = newTaskName.trim();
             }
         });
-    });
+
+        const deleteBtn = document.createElement('span');
+        deleteBtn.innerHTML = '&times;'; // × close icon
+        deleteBtn.classList.add('ml-2', 'text-danger');
+        deleteBtn.style.cursor = 'pointer';
+        deleteBtn.style.marginLeft = '10px';
+        deleteBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            listItem.remove();
+        });
+
+        listItem.appendChild(checkBtn);
+        listItem.appendChild(taskSpan);
+        listItem.appendChild(editBtn);
+        listItem.appendChild(deleteBtn);
+
+
+        listItem.addEventListener('click', function() {
+            taskSpan.classList.toggle('text-decoration-line-through');
+            taskSpan.classList.toggle('text-muted');
+        });
+
+        taskList.appendChild(listItem);
+    }
+});
 
 </script>
 @endpush
