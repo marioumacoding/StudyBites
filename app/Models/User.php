@@ -48,4 +48,8 @@ class User extends Authenticatable
         return $this->belongsTo(Background::class);
     }
     
+    public function todos()
+{
+    return $this->hasMany(Todo::class);
+}
 }

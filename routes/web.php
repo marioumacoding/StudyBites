@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ToDoController;
 
 
 Route::middleware('auth')->group(function () {
@@ -59,3 +60,10 @@ Route::get('/skillboosters', function () {
 Route::get('/mindboosters', function () {
     return view('mindboosters');
 })->name('mindboosters');
+
+Route::get('/todos', [TodoController::class, 'index'])->name('todos.index');
+Route::post('/todos', [TodoController::class, 'store'])->name('todos.store');
+Route::put('/todos/{todo}', [TodoController::class, 'update'])->name('todos.update');
+Route::delete('/todos/{todo}', [TodoController::class, 'destroy'])->name('todos.destroy');
+Route::get('/todos/history', [TodoController::class, 'history'])->name('todos.history');
+

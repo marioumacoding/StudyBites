@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+<link rel="stylesheet" href="{{ asset('css/home.css') }}">
+<!-- Inject CSRF token into a JS variable BEFORE loading home.js -->
+<script>
+    window.csrfToken = "{{ csrf_token() }}";
+</script>
+
+<!-- Add your JavaScript file link here -->
+<script src="{{ asset('js/home.js') }}"></script>
 
 <div id="study-container" class="study-container">
     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -26,7 +36,28 @@
         </div>
         @endforeach
     </div>
-    
+
+
+    <!-- Todo List Container -->
+    <div class="todo-wrapper">
+        <button class="toggle-button" onclick="toggleList()">ToDo List</button>
+        <div class="todo-container" id="todoContainer" style="display: none;">
+            <i class="fas fa-history history-icon"></i>
+            <div class="title-container">
+                <div class="todo-title">TO-DO LIST</div>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <button class="toggle-button" onclick="toggleList()">Hide List</button>
+                <button class="history-button" onclick="toggleHistory()">History</button>
+            </div>
+
+            <!-- Todo List Items -->
+            <ul class="todo-list" id="todoList">
+                <!-- Items will be dynamically added here -->
+            </ul>
+        </div>
+    </div>
 
 
     <div class="pomodoro-container">
@@ -62,256 +93,14 @@
     <p>Points: {{ $user->points }}</p>
 </div>
 </div>
-
-
-<div style="position: fixed; top: 20px; right: 20px; z-index: 100;">
-    <button id="toggleTaskListBtn" class="btn btn-primary">Tasks</button>
-    <div id="taskListContainer" style="display: none; background-color: #f9f9f9; border: 1px solid #ccc; padding: 10px; margin-top: 10px; width: 250px; box-shadow: 2px 2px 5px #888;">
-        <h4>Tasks</h4>
-        <ul id="taskList" style="list-style-type: none; padding: 0;">
-        </ul>
-        <div>
-            <input type="text" id="newTaskInput" placeholder="Add new task">
-            <button id="addTaskBtn" class="btn btn-success btn-sm">+</button>
-        </div>
     </div>
 </div>
-
-
-
 </div>
 @endsection
 
-@push('styles')
-<style>
-/* Reset default margin and padding */
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-}
-.points-box {
-    /* color: #f0f0f0; */
-    border-color: #f0f0f0;
-    border-radius: 5px;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.rank-container{
-    background-color: #f0f0f0;
-    padding: 10px;
-    border-radius: 5px;
-    display: inline-block;
-
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-}
-
-/* Main Background Container */
-.study-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-image: url('{{ asset('backgrounds/default.jpg') }}'); /* Your background image */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    transition: background-image 0.5s ease;
-    z-index: 1;
-    image-rendering: optimizeQuality;
-    -webkit-image-rendering: optimize-contrast;
-}
-
-/* Quote Container */
-.quote-container {
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 600px;
-    position: fixed;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    margin-bottom: 20px;
-    z-index: 2;
-}
-
-.quote-text {
-  font-size: 18px;
-  line-height: 1.5;
-  color: #333;
-}
-
-.quote-author {
-  font-size: 14px;
-  color: #666;
-  margin-top: 10px;
-  text-align: right;
-}
-
-/* Background Change Button */
-.bg-change-btn {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-    background-color: #F08080;
-    border: none;
-    color: white;
-    cursor: pointer;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-/* Background Selector Panel */
-.bg-selector-panel {
-    display: none;
-    position: fixed;
-    right: 90px;
-    bottom: 20px;
-    background: white;
-    border-radius: 8px;
-    padding: 15px;
-    width: 200px;
-    max-height: 70vh;
-    overflow-y: auto;
-    z-index: 4;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.bg-option {
-    margin-bottom: 10px;
-    cursor: pointer;
-}
-
-.bg-option img {
-    width: 100%;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 4px;
-    border: 1px solid #eee;
-}
-
-.bg-option span {
-    display: block;
-    text-align: center;
-    margin-top: 5px;
-    font-size: 12px;
-}
-
-/* Pomodoro Timer Container */
-.pomodoro-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 5;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.timer-wrapper {
-    /* Optional max-width if needed */
-}
-</style>
-@endpush
 
 @push('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const btn = document.getElementById('bg-toggle-btn');
-    const panel = document.getElementById('bg-selector');
-    const container = document.getElementById('study-container');
-    const quoteContainer = document.getElementById('quote-container');
-    let currentQuoteIndex = 0;
-    let intervalId;
-    const quotes = @json($quotes ?? []);
-
-    function displayQuote() {
-        if (quotes.length > 0 && quoteContainer) {
-            const quote = quotes[currentQuoteIndex];
-            quoteContainer.innerHTML = `
-                <p class="quote-text">${quote.text}</p>
-                <p class="quote-author">- ${quote.author}</p>
-            `;
-            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-        }
-    }
-
-    if (quotes.length > 0 && quoteContainer) {
-        displayQuote();
-        intervalId = setInterval(displayQuote, 5000);
-    }
-
-    if (btn && panel && container) {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-        });
-
-        document.addEventListener('click', function() {
-            panel.style.display = 'none';
-        });
-
-        panel.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-
-        document.querySelectorAll('.bg-option').forEach(option => {
-            option.addEventListener('click', function() {
-                const bgUrl = this.dataset.bg;
-                container.style.backgroundImage = `url('${bgUrl}')`;
-
-                fetch('/update-background', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({ background: bgUrl })
-                });
-            });
-        });
-    } else {
-        console.error("Missing elements (button, panel, or container)!");
-    }
-
-    window.addEventListener('beforeunload', function() {
-        if (intervalId) {
-            clearInterval(intervalId);
-        }
-    });
-});
-
-let timerInterval;
-let isRunning = false;
-let timeLeft = 0.5 * 60; // 30 seconds for testing
-let sessionType = 'focus'; // 'focus', 'shortBreak', 'longBreak'
-
-// Format time as MM:SS
-function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-}
 
 // Start/Pause Timer
 function startPauseTimer() {
@@ -351,118 +140,6 @@ function startPauseTimer() {
     }
     isRunning = !isRunning;
 }
-
-// Reset Timer
-function resetTimer() {
-    clearInterval(timerInterval);
-    setTimer(sessionType);
-    document.getElementById("start-stop").innerText = "Start";
-    isRunning = false;
-}
-
-// Set Timer
-function setTimer(type) {
-    sessionType = type;
-    switch (type) {
-        case 'focus':
-            timeLeft = 0.5 * 60;
-            break;
-        case 'shortBreak':
-            timeLeft = 5 * 60;
-            break;
-        case 'longBreak':
-            timeLeft = 15 * 60;
-            break;
-    }
-    document.getElementById("timer").innerText = formatTime(timeLeft);
-    if (isRunning) {
-        startPauseTimer(); // pause if already running
-    }
-}
-document.addEventListener('DOMContentLoaded', function() {
-    const toggleTaskListBtn = document.getElementById('toggleTaskListBtn');
-    const taskListContainer = document.getElementById('taskListContainer');
-    const taskList = document.getElementById('taskList');
-    const newTaskInput = document.getElementById('newTaskInput');
-    const addTaskBtn = document.getElementById('addTaskBtn');
-
-    // Toggle task list visibility
-    toggleTaskListBtn.addEventListener('click', function() {
-        taskListContainer.style.display = (taskListContainer.style.display === 'none' || taskListContainer.style.display === '') ? 'block' : 'none';
-    });
-
-    // Add a new task
-    addTaskBtn.addEventListener('click', function() {
-        const taskText = newTaskInput.value.trim();
-        if (taskText !== '') {
-            addTask(taskText);
-            newTaskInput.value = '';
-        }
-    });
-
-    // Add task on pressing Enter
-    newTaskInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-            addTaskBtn.click();
-        }
-    });
-
-    // Function to create a task item
-    function addTask(taskText) {
-        const listItem = document.createElement('li');
-        listItem.classList.add('d-flex', 'align-items-center', 'mb-2', 'task-item');
-
-        const taskSpan = document.createElement('span');
-        taskSpan.textContent = taskText;
-        taskSpan.classList.add('flex-grow-1');
-        taskSpan.style.cursor = 'pointer';
-       // Check (✔️) button
-       const checkBtn = document.createElement('span');
-        checkBtn.innerHTML = '&#10003;'; // ✔️ character
-        checkBtn.style.cursor = 'pointer';
-        checkBtn.style.color = 'green';
-        checkBtn.style.marginRight = '10px';
-        checkBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            taskSpan.style.textDecoration = taskSpan.style.textDecoration === 'line-through' ? 'none' : 'line-through';
-        });
-        const editBtn = document.createElement('span');
-        editBtn.innerHTML = '&#9998;'; // ✎ edit icon
-        editBtn.classList.add('ml-2', 'text-primary');
-        editBtn.style.cursor = 'pointer';
-        editBtn.style.marginLeft = '10px';
-        editBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const newTaskName = prompt('Edit task:', taskSpan.textContent);
-            if (newTaskName !== null && newTaskName.trim() !== '') {
-                taskSpan.textContent = newTaskName.trim();
-            }
-        });
-
-        const deleteBtn = document.createElement('span');
-        deleteBtn.innerHTML = '&times;'; // × close icon
-        deleteBtn.classList.add('ml-2', 'text-danger');
-        deleteBtn.style.cursor = 'pointer';
-        deleteBtn.style.marginLeft = '10px';
-        deleteBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            listItem.remove();
-        });
-
-        listItem.appendChild(checkBtn);
-        listItem.appendChild(taskSpan);
-        listItem.appendChild(editBtn);
-        listItem.appendChild(deleteBtn);
-
-
-        listItem.addEventListener('click', function() {
-            taskSpan.classList.toggle('text-decoration-line-through');
-            taskSpan.classList.toggle('text-muted');
-        });
-
-        taskList.appendChild(listItem);
-    }
-});
 
 </script>
 @endpush
