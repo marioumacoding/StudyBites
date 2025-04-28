@@ -46,16 +46,21 @@
             <div class="title-container">
                 <div class="todo-title">TO-DO LIST</div>
             </div>
+     <!-- Display Today's Date -->
+     <div id="todayDate" style="margin-bottom: 10px;"></div>
 
             <div style="display: flex; gap: 10px; margin-bottom: 10px;">
                 <button class="toggle-button" onclick="toggleList()">Hide List</button>
-                <button class="history-button" onclick="toggleHistory()">History</button>
-            </div>
+                <button id="historyBtn" onclick="toggleHistory()">History</button>
+                </div>
 
             <!-- Todo List Items -->
             <ul class="todo-list" id="todoList">
                 <!-- Items will be dynamically added here -->
             </ul>
+
+            <!-- History Container -->
+        <div id="historyContainer" style="display: none;"></div> <!-- This is where history will be shown -->
         </div>
     </div>
 
@@ -66,17 +71,20 @@
             <p>This is your timer page!</p>
 
             <div style="margin-top: 20px;">
-                <button onclick="setTimer('focus')" class="btn btn-primary">Focus</button>
-                <button onclick="setTimer('shortBreak')" class="btn btn-secondary">Short Break</button>
-                <button onclick="setTimer('longBreak')" class="btn btn-warning">Long Break</button>
-            </div>
-
+    <button onclick="setTimer('focus')" class="timer-btn">Focus</button>
+    <button onclick="setTimer('shortBreak')" class="timer-btn">Short Break</button>
+    <button onclick="setTimer('longBreak')" class="timer-btn">Long Break</button>
+</div>
             <div id="timer" style="font-size: 48px; margin-top: 20px;">00:30</div>
-
-            <div style="margin-top: 20px;">
-                <button onclick="startPauseTimer()" id="start-stop" class="btn btn-success">Start</button>
-                <button onclick="resetTimer()" class="btn btn-danger">Reset</button>
-            </div>
+<!-- Start/Pause and Reset Buttons -->
+<div style="margin-top: 20px;">
+    <button onclick="startPauseTimer()" id="start-stop" class="btn btn-success">
+        <i id="start-stop-icon" class="fas fa-play"></i> Start
+    </button>
+    <button onclick="resetTimer()" id="reset" class="btn btn-danger">
+        <i class="fas fa-redo"></i> Reset
+    </button>
+</div>
         </div>
     </div>
 <iframe

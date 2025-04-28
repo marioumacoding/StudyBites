@@ -169,123 +169,24 @@ function setTimer(type) {
 }
 
 
-// document.addEventListener('DOMContentLoaded', function() {
-//     const toggleTaskListBtn = document.getElementById('toggleTaskListBtn');
-//     const taskListContainer = document.getElementById('taskListContainer');
-//     const taskList = document.getElementById('taskList');
-//     const newTaskInput = document.getElementById('newTaskInput');
-//     const addTaskBtn = document.getElementById('addTaskBtn');
-
-//     // Toggle task list visibility
-//     toggleTaskListBtn.addEventListener('click', function() {
-//         taskListContainer.style.display = (taskListContainer.style.display === 'none' || taskListContainer.style.display === '') ? 'block' : 'none';
-//     });
-
-//     // Add a new task
-//     addTaskBtn.addEventListener('click', function() {
-//         const taskText = newTaskInput.value.trim();
-//         if (taskText !== '') {
-//             addTask(taskText);
-//             newTaskInput.value = '';
-//         }
-//     });
-
-//     // Add task on pressing Enter
-//     newTaskInput.addEventListener('keydown', function(e) {
-//         if (e.key === 'Enter') {
-//             addTaskBtn.click();
-//         }
-//     });
-
-//     // Function to create a task item
-//     function addTask(taskText) {
-//         const listItem = document.createElement('li');
-//         listItem.classList.add('d-flex', 'align-items-center', 'mb-2', 'task-item');
-
-//         const taskSpan = document.createElement('span');
-//         taskSpan.textContent = taskText;
-//         taskSpan.classList.add('flex-grow-1');
-//         taskSpan.style.cursor = 'pointer';
-//        // Check (✔️) button
-//        const checkBtn = document.createElement('span');
-//         checkBtn.innerHTML = '&#10003;'; // ✔️ character
-//         checkBtn.style.cursor = 'pointer';
-//         checkBtn.style.color = 'green';
-//         checkBtn.style.marginRight = '10px';
-//         checkBtn.addEventListener('click', function(e) {
-//             e.stopPropagation();
-//             taskSpan.style.textDecoration = taskSpan.style.textDecoration === 'line-through' ? 'none' : 'line-through';
-//         });
-//         const editBtn = document.createElement('span');
-//         editBtn.innerHTML = '&#9998;'; // ✎ edit icon
-//         editBtn.classList.add('ml-2', 'text-primary');
-//         editBtn.style.cursor = 'pointer';
-//         editBtn.style.marginLeft = '10px';
-//         editBtn.addEventListener('click', function(e) {
-//             e.stopPropagation();
-//             const newTaskName = prompt('Edit task:', taskSpan.textContent);
-//             if (newTaskName !== null && newTaskName.trim() !== '') {
-//                 taskSpan.textContent = newTaskName.trim();
-//             }
-//         });
-
-//         const deleteBtn = document.createElement('span');
-//         deleteBtn.innerHTML = '&times;'; // × close icon
-//         deleteBtn.classList.add('ml-2', 'text-danger');
-//         deleteBtn.style.cursor = 'pointer';
-//         deleteBtn.style.marginLeft = '10px';
-//         deleteBtn.addEventListener('click', function(e) {
-//             e.stopPropagation();
-//             listItem.remove();
-//         });
-
-//         listItem.appendChild(checkBtn);
-//         listItem.appendChild(taskSpan);
-//         listItem.appendChild(editBtn);
-//         listItem.appendChild(deleteBtn);
-
-
-//         listItem.addEventListener('click', function() {
-//             taskSpan.classList.toggle('text-decoration-line-through');
-//             taskSpan.classList.toggle('text-muted');
-//         });
-
-//         taskList.appendChild(listItem);
-//     }
-// });
-
 function toggleList() {
     const todoContainer = document.getElementById('todoContainer');
     todoContainer.style.display = todoContainer.style.display === 'none' ? 'block' : 'none';
 }
-
 function toggleHistory() {
-    const historyContainer = document.getElementById('historyContainer');
-    
-    if (historyContainer.style.display === 'none') {
-        // Show loading indicator
-        historyContainer.innerHTML = '<p>Loading history...</p>';
-        historyContainer.style.display = 'block';
-        
-        // Fetch history via AJAX
-        fetch('/todos/history')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.text();
-            })
-            .then(html => {
-                historyContainer.innerHTML = html;
-            })
-            .catch(error => {
-                console.error('Error loading history:', error);
-                historyContainer.innerHTML = '<p>Error loading history. Please try again.</p>';
-            });
-    } else {
-        historyContainer.style.display = 'none';
-    }
+    window.location.href = '/history';  // Redirect to the history page
+
 }
+
+// Example placeholder functions for edit and delete buttons
+function editTask(taskId) {
+    alert(`Edit task with ID: ${taskId}`);
+}
+
+function deleteTask(taskId) {
+    alert(`Delete task with ID: ${taskId}`);
+}
+
 
 // Function to add a task to the list
 function addTask() {
@@ -345,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
     addButton.textContent = 'Add';
     addButton.style.marginLeft = '5px';
     addButton.style.padding = '5px';
-    addButton.style.backgroundColor = '#F08080';
+    addButton.style.backgroundColor = '#6c4f3d';
     addButton.style.color = 'white';
     addButton.style.border = 'none';
     addButton.style.borderRadius = '5px';
@@ -371,8 +272,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
     }
+    
 
-    // Function to create a todo item
     // Function to create a todo item
 function createTodoItem(todo) {
     const li = document.createElement('li');
@@ -415,7 +316,7 @@ function createTodoItem(todo) {
     deleteBtn.textContent = '✕';
     deleteBtn.style.background = 'transparent';
     deleteBtn.style.border = 'none';
-    deleteBtn.style.color = '#ff5555';
+    deleteBtn.style.color = '#6c4f3d';
     deleteBtn.style.fontSize = '18px';
     deleteBtn.style.cursor = 'pointer';
     deleteBtn.onclick = function() {
@@ -492,19 +393,21 @@ function updateTodo(id, data) {
         .catch(error => console.error('Error deleting task:', error));
     }
 
-    // Function to toggle history
-    function toggleHistory() {
-        if (historyContainer.style.display === 'none') {
-            fetch('/todos/history')
-                .then(response => response.text())
-                .then(html => {
-                    historyContainer.innerHTML = html;
-                    historyContainer.style.display = 'block';
-                });
-        } else {
-            historyContainer.style.display = 'none';
-        }
-    }
+    
+
+    // // Function to toggle history
+    // function toggleHistory() {
+    //     if (historyContainer.style.display === 'none') {
+    //         fetch('/todos/history')
+    //             .then(response => response.text())
+    //             .then(html => {
+    //                 historyContainer.innerHTML = html;
+    //                 historyContainer.style.display = 'block';
+    //             });
+    //     } else {
+    //         historyContainer.style.display = 'none';
+    //     }
+    // }
 
     // Make the input respond to Enter key
     input.addEventListener('keypress', function(e) {
@@ -520,7 +423,7 @@ function toggleList() {
     todoContainer.style.display = todoContainer.style.display === 'none' ? 'block' : 'none';
 }
 
-function toggleHistory() {
-    const historyContainer = document.getElementById('historyContainer');
-    historyContainer.style.display = historyContainer.style.display === 'none' ? 'block' : 'none';
-}
+// function toggleHistory() {
+//     const historyContainer = document.getElementById('historyContainer');
+//     historyContainer.style.display = historyContainer.style.display === 'none' ? 'block' : 'none';
+// }
