@@ -7,6 +7,7 @@
 - 🕒 Pomodoro Timer with Focus, Short Break, and Long Break options
 - ⭐ Points system to reward completed sessions
 - 🎨 Background selection (from a predefined list)
+- 🧠 Booster Cards
 - 👤 User authentication (register, login, logout, password reset)
 - ✅ To-Do List:
   - View today’s tasks
@@ -17,5 +18,5 @@
 
 - **Backend:** Laravel (PHP)
 - **Frontend:** HTML, CSS, Figma (for design)
-- **JavaScript:** For timer logic and UI interactions
+- **JavaScript:** For timer logic
 - **Database:** MySQL
